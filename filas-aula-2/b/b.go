@@ -2,14 +2,14 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/joho/godotenv"
-	uuid "github.com/satori/go.uuid"
-	"github.com/streadway/amqp"
-	"github.com/wesleywillians/go-rabbitmq/queue"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"net/url"
+	"github.com/joho/godotenv"
+	uuid "github.com/google/uuid"
+	"github.com/streadway/amqp"
+ 	"github.com/wesleywillians/go-rabbitmq/queue"
 )
 
 type Result struct {
@@ -23,7 +23,8 @@ type Order struct {
 }
 
 func NewOrder() Order {
-	return Order{ID: uuid.NewV4()}
+  id := uuid.New();
+	return Order{ID: id}
 }
 
 const (

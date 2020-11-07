@@ -1,9 +1,14 @@
 version: '3'
 
+volumes:
+  rabbitdata:
+    driver: local
+
 services:
 
   rabbit:
     image: "rabbitmq:3-management"
+    hostname: 'rabbithost'
     environment:
       RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
       RABBITMQ_DEFAULT_USER: "rabbitmq"
@@ -12,3 +17,27 @@ services:
     ports:
       - "15672:15672"
       - "5672:5672"
+    volumes:
+      - rabbitdata:/var/lib/rabbitmq
+    restart: on-failure
+
+  microservice-a:
+    build: ./a
+    ports:
+      - 9090:9090
+    depends_on:
+      - rabbit
+    restart: on-failure
+
+  microservice-b:
+    build:
+      context: ./b
+    depends_on:
+      - rabbit
+    restart: on-failure
+
+  microservice-c:
+    build: ./c
+    ports:
+      - 9092:9092
+    restart: on-failure
