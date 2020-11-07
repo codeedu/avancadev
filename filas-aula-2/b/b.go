@@ -6,12 +6,10 @@ import (
 	"log"
 	"net/http"
 	"net/url"
-	"fmt"
-
 	"github.com/joho/godotenv"
 	uuid "github.com/google/uuid"
 	"github.com/streadway/amqp"
-// 	"github.com/wesleywillians/go-rabbitmq/queue"
+ 	"github.com/wesleywillians/go-rabbitmq/queue"
 )
 
 type Result struct {
@@ -25,7 +23,7 @@ type Order struct {
 }
 
 func NewOrder() Order {
-    id := uuid.New();
+  id := uuid.New();
 	return Order{ID: id}
 }
 
@@ -61,7 +59,7 @@ func process(msg amqp.Delivery) {
 	order := NewOrder()
 	json.Unmarshal(msg.Body, &order)
 
-	resultCoupon := makeHttpCall("http://microservice-c:9092", order.Coupon)
+	resultCoupon := makeHttpCall("http://localhost:9092", order.Coupon)
 
 	switch resultCoupon.Status {
 	case InvalidCoupon:

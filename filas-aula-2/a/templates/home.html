@@ -15,7 +15,6 @@
         <h2>Checkout</h2>
     </div>
 
-    {{ if eq .Status ""}}
         <form action="/process" method="post">
             <div class="row">
                 <div class="col-md-4 order-md-2 mb-4">
@@ -85,9 +84,6 @@
                 </div>
             </div>
         </form>
-    {{ else}}
-        <h4>Resultado da operação: {{ .Status }}</h4>
-    {{end}}
 
     <footer class="my-5 pt-5 text-muted text-center text-small">
         <p class="mb-1">&copy; AvançaDev - 2020</p>
