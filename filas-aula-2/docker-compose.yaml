@@ -1,9 +1,8 @@
 version: '3'
-
 services:
-
   rabbit:
     image: "rabbitmq:3-management"
+    hostname: "rabbitmq"
     environment:
       RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
       RABBITMQ_DEFAULT_USER: "rabbitmq"
@@ -12,3 +11,15 @@ services:
     ports:
       - "15672:15672"
       - "5672:5672"
+  microservice-a:
+    image: "radsdev93/avancadev-microservico-a"
+    ports:
+      - "9090:9090"
+  microservice-a:
+    image: "radsdev93/avancadev-microservico-b"
+    ports:
+      - "9091:9091"
+  microservice-c:
+    image: "radsdev93/avancadev-microservico-c"
+    ports:
+      - "9092:9092"
